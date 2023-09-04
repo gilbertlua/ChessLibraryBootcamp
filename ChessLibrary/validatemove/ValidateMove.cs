@@ -13,7 +13,7 @@ namespace ChessLibrary{
             else{
                 side = 1;
             }
-            Console.WriteLine("side is"+ side);
+            Console.WriteLine("side is "+ side);
             if(xD == side && yD == 0 && _chessBoard.IsSpotEmpty(endSpot)){
                 return true;
             }

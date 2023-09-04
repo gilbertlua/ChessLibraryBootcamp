@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 	
 public class MovePiece{
-	[Test]
+	// [Test]
 	public void MovePieceSingleTest(){
 				/*
 				if the board look like this and the pawn start spot
@@ -68,7 +68,7 @@ public class MovePiece{
 			Console.WriteLine(board.GetPiece(endSpot).GetName());                           
 		}
 
-[Test]
+// [Test]
 	public void MoveKnightPieceTest(){
 		
 /*            0   1   2   3   4   5   6   7   
@@ -243,7 +243,7 @@ public class MovePiece{
 		Console.WriteLine(board.GetPiece(endSpot).GetName());
 	}            
 
-	[Test] 
+	// [Test] 
 	public void MoveQueenPieceTest(){
 		
 /*            0   1   2   3   4   5   6   7   

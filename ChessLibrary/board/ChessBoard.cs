@@ -102,6 +102,12 @@ namespace ChessLibrary{
         public void CapturePiece(Spot spot){
             _captPiece.Add(GetPiece(spot));
         }
+        public List<IPiece> GetCapturedPiece(){
+            if(_captPiece!=null){
+                return _captPiece;
+            }
+            throw new NullReferenceException();
+        }
         /// <summary>
         /// check if spot is empty
         /// </summary>
