@@ -63,24 +63,17 @@ namespace ChessLibrary{
 		public virtual bool IsMovedValid(Move move){
 			ChessBoard board = ChessBoard.GetTheBoard();
 			if (board.IsOutOfRange(move)){
-				Console.WriteLine("IsOutOfRange");
 				return false;
 			}
 			if (board.IsSpotEmpty(move.GetStartSpot())){
-				Console.WriteLine(move.GetStartSpot().Get_X()+" "+" "+move.GetStartSpot().Get_Y());
-				Console.WriteLine("IsSpotEmpty -> " + board.IsSpotEmpty(move.GetStartSpot()));
 				return false;
 			}
 			if (move.GetStartSpot().Equals(move.GetEndSpot())){
-				Console.WriteLine("IsEquals");
 				return false;
 			}
 			return true;
 		}
 
-		public bool IsAllyPiece(IPiece piece){
-			return piece != null && _color.Equals(piece.GetColor());
-		}
 		public int GetMoveAmount(){
 			return _moveAmount;
 		}

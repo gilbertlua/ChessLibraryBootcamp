@@ -9,14 +9,12 @@ namespace ChessLibrary{
         private int _sizeWidth;
         private List<IPiece> _captPiece = new List<IPiece>() ;
         private string[,] _configuration;
-        private StringBuilder _chess_board = new StringBuilder();
         
         // constructur
         public ChessBoard(){
             Board board = new Board();
             _sizeWidth = board.GetWidth();
             _sizeHeight = board.GetHeight();
-
             _piecesHold = new Piece[8,8];
             _configuration = new string[,]{
                 {"Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn"},
