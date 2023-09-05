@@ -1,8 +1,9 @@
 namespace ChessLibrary{    
     public class GameController{
         private List<IPlayer>? _players;
+        private IPlayer? _playerBlack,_playerWhite;
         private int _turn;
-        private ChessBoard board = ChessBoard.GetTheBoard();
+        private ChessBoard _board = ChessBoard.GetTheBoard();
 
         public bool AddPlayer(IPlayer player){
             if(player is not null){
@@ -22,6 +23,12 @@ namespace ChessLibrary{
                 return false;
             }
             return true;
+        }
+        public bool SetPlayerToGame(IPlayer player1, IPlayer _player2){
+                return true;
+        }
+        public Piece[,] GetBoard(){
+                return _board.GenerateBoard();
         }
     }
 }

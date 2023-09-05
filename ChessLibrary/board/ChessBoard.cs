@@ -22,6 +22,7 @@ namespace ChessLibrary{
                 {"Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn"},
                 {"Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook"}
             };
+            InitBoard();
         }
         /// <summary>
         /// get board 
