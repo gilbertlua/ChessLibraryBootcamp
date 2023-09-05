@@ -20,6 +20,7 @@ namespace ChessLibrary{
                 {"Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn"},
                 {"Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook"}
             };
+            InitBoard();
         }
         /// <summary>
         /// get board 
@@ -99,6 +100,12 @@ namespace ChessLibrary{
         /// <param name="spot"></param>
         public void CapturePiece(Spot spot){
             _captPiece.Add(GetPiece(spot));
+        }
+        public List<IPiece> GetCapturedPiece(){
+            if(_captPiece!=null){
+                return _captPiece;
+            }
+            throw new NullReferenceException();
         }
         /// <summary>
         /// check if spot is empty
