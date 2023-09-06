@@ -78,6 +78,10 @@ namespace ChessLibrary{
 			if(tempPiece == null){
 				return false;
 			} 
+			if(IsFriendPiece(move)){
+				Console.WriteLine("Is Friend Piece");
+				return false;
+			}
 			tempPiece.PieceGotMoved();
 			if(!IsSpotEmpty(move.GetEndSpot())){
 				CapturePiece(move.GetEndSpot());
@@ -170,5 +174,15 @@ namespace ChessLibrary{
 			}
 			return _piecesHold[spot.Get_X(),spot.Get_Y()];    
 		}   
+		public bool IsFriendPiece(Move move){
+			Piece destinationPiece = GetPiece(move.GetStartSpot());
+			Piece startPiece = GetPiece(move.GetEndSpot());
+			if(destinationPiece != null && startPiece != null){
+				bool IsColorEqual = destinationPiece.GetColor().Equals(startPiece.GetColor());
+				return IsColorEqual;	
+			}
+			
+			return false;
+		}
 	}
 }
