@@ -9,6 +9,7 @@ namespace ChessLibrary{
 		private int _sizeWidth;
 		private List<IPiece> _captPiece = new List<IPiece>() ;
 		private string[,] _configuration;
+		CheckMate _checkMate = new();
 		
 		// constructur
 		public ChessBoard(){
@@ -23,7 +24,12 @@ namespace ChessLibrary{
 			
 			// configuration diganti ke serialization json atau xml
 			// dibuat overloading yang parameter Piece
-			InitBoard();
+			// InitBoard();
+			// SetNullAllBoard();
+			// SetCheckMatBoard();
+			SetCapturedFriend();
+
+
 		}
 		/// <summary>
 		/// get board 
@@ -64,6 +70,15 @@ namespace ChessLibrary{
 					_piecesHold[i,j] = null!;
 				}
 			}     
+		}
+		public void SetCheckMatBoard(){
+			SetPiece(new Pawn(PieceColor.white),new Spot(6,5));
+			SetPiece(new King(PieceColor.white),new Spot(7,4));
+			SetPiece(new Bishop(PieceColor.black),new Spot(5,6));
+		}
+		public void SetCapturedFriend(){
+			SetPiece(new Pawn(PieceColor.white),new Spot(6,5));
+			SetPiece(new King(PieceColor.white),new Spot(7,4));
 		}
 		/// <summary>
 		/// is used for move piece
@@ -173,6 +188,12 @@ namespace ChessLibrary{
 				throw new IndexOutOfRangeException();
 			}
 			return _piecesHold[spot.Get_X(),spot.Get_Y()];    
+		}   
+		public Piece GetPiece(int x, int y){
+			if(IsOutOfRange(x,y)){
+				throw new IndexOutOfRangeException();
+			}
+			return _piecesHold[x,y];    
 		}   
 		public bool IsFriendPiece(Move move){
 			Piece destinationPiece = GetPiece(move.GetStartSpot());

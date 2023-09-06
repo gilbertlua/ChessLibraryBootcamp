@@ -6,6 +6,7 @@ class Program{
 	ChessBoard _board = ChessBoard.GetTheBoard();
 	ChessPlayer[] _player = new ChessPlayer[2];
 	List<IPlayer> _allPplayer = gameController.GetAllPlayers();
+	CheckMate _checkMate = new CheckMate();
 	Move? _move;
 	Spot? startSpot;
 	Spot? endSpot;
@@ -42,6 +43,7 @@ class Program{
 		while(true){
 			DisplayCapturedPiece();
 			GenerateBoard();
+			Console.WriteLine("\nstatus :" +_checkMate.GetStatus()+"\n--------");
 			ValidateMoveDestination();
 			Console.ReadKey();
 			Console.Clear();
@@ -70,6 +72,7 @@ class Program{
 		Console.Write("x : ");startX = Convert.ToInt32(Console.ReadLine());
 		Console.Write("y : ");startY = Convert.ToInt32(Console.ReadLine());
 		startSpot = new Spot(startX,startY);
+		
 // class diagram
 // Skak
 // check swith turn
@@ -80,7 +83,7 @@ class Program{
 		endSpot = new Spot(endX,endY);
 		_move = new Move(startSpot,endSpot);
 		
-		Piece tempPiece = _board.GetPiece(startSpot);
+		Piece tempPiece = _board.GetPiece(startSpot);		
 		if(tempPiece != null){
 			bool checkIsPieceValidToMove = tempPiece.IsMovedValid(_move);
 			Console.Write(tempPiece.GetName()+"  ~  ");
@@ -89,6 +92,7 @@ class Program{
 				bool check = _board.MovePiece(_move);
 				if(check){
 					Console.WriteLine("success move");
+					_checkMate.IsCheckMate(tempPiece.GetColor());
 				}
 				else{
 					Console.WriteLine("error to move");
