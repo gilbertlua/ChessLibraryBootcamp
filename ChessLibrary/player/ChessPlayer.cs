@@ -31,5 +31,8 @@ namespace ChessLibrary{
 			return 0;
 		}
 		
+		// tambah method compare
+		
+		
 	}
 }

@@ -38,6 +38,7 @@ class Program{
 		GenerateBoard genBoard = new(pieces);
 	}
 	void GameStart(){
+		
 		while(true){
 			DisplayCapturedPiece();
 			GenerateBoard();
@@ -45,6 +46,7 @@ class Program{
 			Console.ReadKey();
 			Console.Clear();
 		}	
+		
 	}
 	void DisplayCapturedPiece(){
 		DisplayAllPlayer();
@@ -68,7 +70,10 @@ class Program{
 		Console.Write("x : ");startX = Convert.ToInt32(Console.ReadLine());
 		Console.Write("y : ");startY = Convert.ToInt32(Console.ReadLine());
 		startSpot = new Spot(startX,startY);
-
+// class diagram
+// Skak
+// check swith turn
+// gabisa move kalo ke tempat teman
 		Console.WriteLine("\nEnter piece destination :");	
 		Console.Write("x : ");endX = Convert.ToInt32(Console.ReadLine());
 		Console.Write("y : ");endY = Convert.ToInt32(Console.ReadLine());

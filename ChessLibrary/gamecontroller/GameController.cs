@@ -2,6 +2,8 @@ namespace ChessLibrary{
 	public class GameController{
 		private List<IPlayer>? _players = new List<IPlayer>();
 		private ChessBoard _board = ChessBoard.GetTheBoard();
+		// buat method equality compiller
+		// 
 
 		public bool AddPlayer(IPlayer player){			
 			if(player is not null){
@@ -17,9 +19,11 @@ namespace ChessLibrary{
 			throw new NullReferenceException("No player added in this game");
 		}
 		public bool PlayerTurn(IPlayer player, Move move){
-			
 			return true;
 		}
+		/*
+			buat metod Next turn
+		*/
 		public bool SetPlayerToGame(IPlayer player1, IPlayer _player2){
 				return true;
 		}
