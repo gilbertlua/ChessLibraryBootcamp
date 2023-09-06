@@ -4,8 +4,8 @@ namespace ChessLibrary{
         public bool IsPawnMoveValid(Move move){
             Spot startSpot = move.GetStartSpot();
             Spot endSpot = move.GetEndSpot();
-            int xD = endSpot.Get_X() - startSpot.Get_X();
-            int yD = endSpot.Get_Y() - startSpot.Get_Y();
+            int xD = endSpot.Get_X() - startSpot.Get_X();//-2
+            int yD = endSpot.Get_Y() - startSpot.Get_Y();//0
             int side;
             if(_chessBoard.GetPiece(startSpot).GetColor().Equals(PieceColor.white)){
                 side = -1;
@@ -13,7 +13,7 @@ namespace ChessLibrary{
             else{
                 side = 1;
             }
-            Console.WriteLine("side is "+ side);
+            Console.WriteLine("Side is : "+side);
             if(xD == side && yD == 0 && _chessBoard.IsSpotEmpty(endSpot)){
                 return true;
             }

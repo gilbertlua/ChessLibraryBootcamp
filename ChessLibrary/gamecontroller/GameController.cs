@@ -1,8 +1,6 @@
 namespace ChessLibrary{    
 	public class GameController{
 		private List<IPlayer>? _players = new List<IPlayer>();
-		private IPlayer? _playerBlack,_playerWhite;
-		private int _turn;
 		private ChessBoard _board = ChessBoard.GetTheBoard();
 
 		public bool AddPlayer(IPlayer player){			
@@ -19,9 +17,7 @@ namespace ChessLibrary{
 			throw new NullReferenceException("No player added in this game");
 		}
 		public bool PlayerTurn(IPlayer player, Move move){
-			if(_turn == 1){
-				return false;
-			}
+			
 			return true;
 		}
 		public bool SetPlayerToGame(IPlayer player1, IPlayer _player2){
@@ -29,6 +25,27 @@ namespace ChessLibrary{
 		}
 		public Piece[,] GetBoard(){
 			return _board.GenerateBoard();
+		}
+
+		// Move handle
+		public bool MovePiece(Move move){
+			if(move is not null){
+				Piece tempPiece = _board.GetPiece(move.GetStartSpot());
+				bool check = tempPiece.IsMovedValid(move);
+				if(check){
+					_board.MovePiece(move);
+					return true;
+				}
+				else{
+					return false;
+				}
+			}
+			return false;
+		}	
+
+		// get capture piece
+		public List<IPiece> GetCapturedPiece(){
+			return _board.GetCapturedPiece();
 		}
 	}
 }

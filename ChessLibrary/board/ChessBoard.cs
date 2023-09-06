@@ -69,12 +69,10 @@ namespace ChessLibrary{
         /// <exception cref="Exception"></exception>
         public bool MovePiece(Move move){
             if(IsOutOfRange(move)){
-                Console.WriteLine("Error 1");
                 return false;
             }
             Piece tempPiece = GetPiece(move.GetStartSpot());
             if(tempPiece == null){
-                Console.WriteLine("Error 2");
                 return false;
             } 
             tempPiece.PieceGotMoved();
