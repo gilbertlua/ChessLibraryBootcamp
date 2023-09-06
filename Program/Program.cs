@@ -44,6 +44,7 @@ class Program{
 			DisplayCapturedPiece();
 			GenerateBoard();
 			Console.WriteLine("\nstatus :" +_checkMate.GetStatus()+"\n--------");
+			Console.WriteLine("\n--------\nPlayer "+ gameController.PlayerTurn().GetPlayerName()+" turn");
 			ValidateMoveDestination();
 			Console.ReadKey();
 			Console.Clear();
@@ -93,6 +94,7 @@ class Program{
 				if(check){
 					Console.WriteLine("success move");
 					_checkMate.IsCheckMate(tempPiece.GetColor());
+					gameController.IncrementSequence();
 				}
 				else{
 					Console.WriteLine("error to move");

@@ -2,9 +2,13 @@ namespace ChessLibrary{
 	public class GameController{
 		private List<IPlayer>? _players = new List<IPlayer>();
 		private ChessBoard _board = ChessBoard.GetTheBoard();
+		private int _sequance = 0;
 		// buat method equality compiller
 		// 
-
+		public bool IncrementSequence(){
+			_sequance++;
+			return true;
+		}
 		public bool AddPlayer(IPlayer player){			
 			if(player is not null){
 				_players?.Add(player);
@@ -18,8 +22,16 @@ namespace ChessLibrary{
 			}
 			throw new NullReferenceException("No player added in this game");
 		}
-		public bool PlayerTurn(IPlayer player, Move move){
-			return true;
+		public IPlayer PlayerTurn(){
+			if(_players != null){
+				if(_sequance % 2 == 0){
+					return _players[0];
+				}
+				else{
+					return _players[1];
+				}
+			}
+			throw new Exception("no player added");
 		}
 		/*
 			buat metod Next turn
