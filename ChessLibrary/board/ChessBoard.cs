@@ -24,9 +24,9 @@ namespace ChessLibrary{
 			
 			// configuration diganti ke serialization json atau xml
 			// dibuat overloading yang parameter Piece
-			InitBoard();
+			// InitBoard();
 			// SetNullAllBoard();
-			// SetCheckMatBoard();
+			SetCheckMatBoard();
 			// SetCapturedFriend();
 
 
