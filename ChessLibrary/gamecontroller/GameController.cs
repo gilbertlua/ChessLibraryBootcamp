@@ -9,6 +9,9 @@ namespace ChessLibrary{
 			_sequance++;
 			return true;
 		}
+		public int GetSequenceNum(){
+			return _sequance;
+		}
 		public bool AddPlayer(IPlayer player){			
 			if(player is not null){
 				_players?.Add(player);

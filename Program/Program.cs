@@ -86,6 +86,7 @@ class Program{
 		
 		Piece tempPiece = _board.GetPiece(startSpot);		
 		if(tempPiece != null){
+			
 			bool checkIsPieceValidToMove = tempPiece.IsMovedValid(_move);
 			Console.Write(tempPiece.GetName()+"  ~  ");
 			Console.WriteLine(tempPiece.GetColor());
