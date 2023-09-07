@@ -2,7 +2,7 @@ namespace ChessLibrary{
 	public class GameController{
 		private Dictionary<IPlayer, PieceColor>? _players = new Dictionary<IPlayer, PieceColor>();
 		private ChessBoard _board = ChessBoard.GetTheBoard();
-		private CheckMate checkMate = new();
+		private CheckMate checkMate = new CheckMate();
 		private int _sequance = 0;
 		// buat method equality compiller
 		// 
@@ -13,6 +13,11 @@ namespace ChessLibrary{
 		public CheckMateStatus GetCheckMateStatus()
 		{
 			return checkMate.GetStatus();
+		}
+		public bool ResetCheckMateStatus()
+		{
+			checkMate.SetCheckMateStatus(CheckMateStatus.NotCheckMate);
+			return true;
 		}
 		public bool IncrementSequence(){
 			_sequance++;
