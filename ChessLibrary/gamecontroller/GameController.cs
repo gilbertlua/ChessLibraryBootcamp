@@ -2,9 +2,18 @@ namespace ChessLibrary{
 	public class GameController{
 		private Dictionary<IPlayer, PieceColor>? _players = new Dictionary<IPlayer, PieceColor>();
 		private ChessBoard _board = ChessBoard.GetTheBoard();
+		private CheckMate checkMate = new();
 		private int _sequance = 0;
 		// buat method equality compiller
 		// 
+		public void CheckMateCheck(PieceColor color)
+		{
+			checkMate.CheckMateConfirm(color);
+		}
+		public CheckMateStatus GetCheckMateStatus()
+		{
+			return checkMate.GetStatus();
+		}
 		public bool IncrementSequence(){
 			_sequance++;
 			return true;
@@ -39,9 +48,7 @@ namespace ChessLibrary{
 		/*
 			buat metod Next turn
 		*/
-		public bool SetPlayerToGame(IPlayer player1, IPlayer _player2){
-				return true;
-		}
+
 		public Piece[,] GetBoard(){
 			return _board.GenerateBoard();
 		}

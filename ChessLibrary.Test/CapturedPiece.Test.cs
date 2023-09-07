@@ -77,7 +77,7 @@ class CapturedPiece{
 		_board.SetPiece(new King(PieceColor.black),new Spot(6,1));
 		Spot spot = _checkMate.CheckKingPosition(PieceColor.black);
 		Console.WriteLine($"{spot.Get_X()} {spot.Get_Y()}");
-		_checkMate.IsCheckMate(PieceColor.white);
+		_checkMate.CheckMateConfirm(PieceColor.white);
 
 
 	}

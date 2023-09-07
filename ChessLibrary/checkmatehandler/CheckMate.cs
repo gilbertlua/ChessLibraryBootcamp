@@ -20,7 +20,7 @@ namespace ChessLibrary{
             }
             throw new Exception("No king in board");
         }
-        public void IsCheckMate(PieceColor color){
+        public void CheckMateConfirm(PieceColor color){
             for(int i=0; i<8; i++){
                 for(int j=0; j<8 ; j++){
                     Piece tempPiece = _board.GetPiece(i,j);
@@ -29,7 +29,7 @@ namespace ChessLibrary{
                             _move = new Move(new Spot(i,j), CheckKingPosition(color));
                             bool check = tempPiece.IsMovedValid(_move);
                             if(check){
-                                _status = CheckMateStatus.CheckMate;
+                                _status = CheckMateStatus.CheckMate;                                
                             }                                      
                             else{
                                 _status = CheckMateStatus.NotCheckMate;

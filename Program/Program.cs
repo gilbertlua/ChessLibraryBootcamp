@@ -43,7 +43,7 @@ class Program{
 		while(true){
 			DisplayCapturedPiece();
 			GenerateBoard();
-			Console.WriteLine("\nstatus :" +_checkMate.GetStatus()+"\n--------");
+			Console.WriteLine("\nstatus :" +gameController.GetCheckMateStatus()+"\n--------");
 			Console.WriteLine("\n--------\nPlayer "+ gameController.PlayerTurn().GetPlayerName()+" turn");
 			ValidateMoveDestination();
 			Console.ReadKey();
@@ -97,7 +97,7 @@ class Program{
 					bool check = _board.MovePiece(_move);
 					if(check){
 						Console.WriteLine("success move");
-						_checkMate.IsCheckMate(tempPiece.GetColor());
+						gameController.CheckMateCheck(tempPiece.GetColor());
 						gameController.IncrementSequence();
 					}
 					else{
