@@ -5,7 +5,7 @@ class Program{
 	static GameController gameController = new GameController();
 	ChessBoard _board = ChessBoard.GetTheBoard();
 	ChessPlayer[] _player = new ChessPlayer[2];
-	List<IPlayer> _allPplayer = gameController.GetAllPlayers();
+	Dictionary<IPlayer,PieceColor> _allPplayer = gameController.GetAllPlayers();
 	CheckMate _checkMate = new CheckMate();
 	Move? _move;
 	Spot? startSpot;
@@ -19,7 +19,7 @@ class Program{
 	void DisplayAllPlayer(){
 		
 		foreach(var x in _allPplayer ){
-			Console.WriteLine("Player Name : " + x.GetPlayerName()+ "\tPlayer id : "+x.GetPlayerId());
+			Console.WriteLine("Player Name : " + x.Key.GetPlayerName()+ "\tPlayer id : "+x.Key.GetPlayerId()+"\tColor : "+x.Value);
 		}
 
 	}
@@ -31,8 +31,8 @@ class Program{
 		_player[1] = new ChessPlayer();
 		_player[1].SetName("Joker");
 		_player[1].SetPlayerId(2);
-		gameController.AddPlayer(_player[0]);
-	 	gameController.AddPlayer(_player[1]);
+		gameController.AddPlayer(_player[0],PieceColor.white);
+	 	gameController.AddPlayer(_player[1],PieceColor.black);
 	}
 	void GenerateBoard(){
 		Piece[,] pieces = gameController.GetBoard();
@@ -86,24 +86,32 @@ class Program{
 		
 		Piece tempPiece = _board.GetPiece(startSpot);		
 		if(tempPiece != null){
+			_allPplayer.TryGetValue(gameController.PlayerTurn(), out PieceColor color);
 			
-			bool checkIsPieceValidToMove = tempPiece.IsMovedValid(_move);
-			Console.Write(tempPiece.GetName()+"  ~  ");
-			Console.WriteLine(tempPiece.GetColor());
-			if(checkIsPieceValidToMove){
-				bool check = _board.MovePiece(_move);
-				if(check){
-					Console.WriteLine("success move");
-					_checkMate.IsCheckMate(tempPiece.GetColor());
-					gameController.IncrementSequence();
+			if(tempPiece.GetColor().Equals(color)){
+				Console.WriteLine("current color :" + color);
+				bool checkIsPieceValidToMove = tempPiece.IsMovedValid(_move);
+				Console.Write(tempPiece.GetName()+"  ~  ");
+				Console.WriteLine(tempPiece.GetColor());
+				if(checkIsPieceValidToMove){
+					bool check = _board.MovePiece(_move);
+					if(check){
+						Console.WriteLine("success move");
+						_checkMate.IsCheckMate(tempPiece.GetColor());
+						gameController.IncrementSequence();
+					}
+					else{
+						Console.WriteLine("error to move");
+					}
 				}
 				else{
-					Console.WriteLine("error to move");
-				}
+					Console.WriteLine("Piece destination not valid");
+				}	
 			}
 			else{
-				Console.WriteLine("Piece destination not valid");
+				Console.WriteLine("Bukan giliran anda gan!!!");
 			}
+			
 		}
 		else{
 			Console.WriteLine("No piece in spot");

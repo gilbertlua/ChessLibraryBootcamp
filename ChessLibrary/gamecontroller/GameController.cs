@@ -1,6 +1,6 @@
 namespace ChessLibrary{    
 	public class GameController{
-		private List<IPlayer>? _players = new List<IPlayer>();
+		private Dictionary<IPlayer, PieceColor>? _players = new Dictionary<IPlayer, PieceColor>();
 		private ChessBoard _board = ChessBoard.GetTheBoard();
 		private int _sequance = 0;
 		// buat method equality compiller
@@ -12,14 +12,14 @@ namespace ChessLibrary{
 		public int GetSequenceNum(){
 			return _sequance;
 		}
-		public bool AddPlayer(IPlayer player){			
+		public bool AddPlayer(IPlayer player,PieceColor color){			
 			if(player is not null){
-				_players?.Add(player);
+				_players?.Add(player,color);
 				return true;
 			}
 			return false;
 		}
-		public List<IPlayer> GetAllPlayers(){
+		public Dictionary<IPlayer,PieceColor> GetAllPlayers(){
 			if(_players !=null){
 				return _players;
 			}
@@ -28,10 +28,10 @@ namespace ChessLibrary{
 		public IPlayer PlayerTurn(){
 			if(_players != null){
 				if(_sequance % 2 == 0){
-					return _players[0];
+					return _players.ElementAt(0).Key;
 				}
 				else{
-					return _players[1];
+					return _players.ElementAt(1).Key;
 				}
 			}
 			throw new Exception("no player added");
