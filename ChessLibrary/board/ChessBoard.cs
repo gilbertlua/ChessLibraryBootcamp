@@ -109,17 +109,20 @@ namespace ChessLibrary{
 		/// is use to reset tile
 		/// </summary>
 		/// <param name="spot"></param>
-		public void ResetTile(Spot spot){
+		public bool ResetTile(Spot spot){
 			if(_piecesHold[spot.Get_X(),spot.Get_Y()] is not null){
 				_piecesHold[spot.Get_X(),spot.Get_Y()] = null!;
+				return true;
 			}
+			return false;
 		}
 		/// <summary>
 		/// is use to captured piece
 		/// </summary>
 		/// <param name="spot"></param>
-		public void CapturePiece(Spot spot){
+		public bool CapturePiece(Spot spot){
 			_captPiece.Add(GetPiece(spot));
+			return true;
 		}
 		public List<IPiece> GetCapturedPiece(){
 			if(_captPiece!=null){
