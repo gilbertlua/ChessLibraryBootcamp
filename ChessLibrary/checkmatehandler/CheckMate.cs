@@ -29,7 +29,6 @@ namespace ChessLibrary{
                             _move = new Move(new Spot(i,j), CheckKingPosition(color));
                             bool check = tempPiece.IsMovedValid(_move);
                             if(check){
-                                Console.WriteLine("test");
                                 _status = CheckMateStatus.CheckMate;
                             }                                      
                             else{
