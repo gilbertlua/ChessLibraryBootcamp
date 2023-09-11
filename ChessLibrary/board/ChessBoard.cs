@@ -60,6 +60,8 @@ namespace ChessLibrary{
 					SetPiece(ip.CreatePiece(_configuration[i,j], PieceColor.black), new Spot(2-1-i, j));        
 				}
 			}
+
+			
 		}    
 		/// <summary>
 		/// set all tile to null piece
@@ -72,7 +74,7 @@ namespace ChessLibrary{
 			}     
 		}
 		public void SetCheckMatBoard(){
-			SetPiece(new Pawn(PieceColor.white),new Spot(6,5));
+			SetPiece(new Queen(PieceColor.white),new Spot(6,5));
 			SetPiece(new King(PieceColor.white),new Spot(7,4));
 			SetPiece(new Queen(PieceColor.black),new Spot(4,1));
 			SetPiece(new King(PieceColor.black),new Spot(1,1));

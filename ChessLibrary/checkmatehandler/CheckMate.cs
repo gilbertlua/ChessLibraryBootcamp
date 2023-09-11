@@ -12,6 +12,7 @@ namespace ChessLibrary{
 					if(tempPiece!=null){
 						if(tempPiece.GetColor().Equals(color)){
 							if(tempPiece.GetName().Equals("King")){
+								Console.WriteLine($"Piece Color {i} {j} "+ tempPiece.GetColor());
 								return new Spot(i,j);
 							}                            
 						}
@@ -20,31 +21,33 @@ namespace ChessLibrary{
 			}
 			throw new Exception("No king in board");
 		}
-		public void CheckMateConfirm(PieceColor color){
+		public bool CheckMateConfirm(PieceColor color){
+			Spot kingSpot = CheckKingPosition(color);
 			for(int i=0; i<8; i++){
 				for(int j=0; j<8 ; j++){
 					Piece tempPiece = _board.GetPiece(i,j);
+					
 					if(tempPiece!=null){
 						if(!tempPiece.GetColor().Equals(color)){
-							_move = new Move(new Spot(i,j), CheckKingPosition(color));
+							_move = new Move(new Spot(i,j), kingSpot);
+							Console.WriteLine($"{tempPiece.GetName()} {i}-{j}");
 							bool check = tempPiece.IsMovedValid(_move);
 							if(check){
-								_status = CheckMateStatus.CheckMate;                                
-							}                                      
-							else{
-								_status = CheckMateStatus.NotCheckMate;
+								return true;                           
 							}              
 						}
+						
 					}
 				}
 			}
+			return false;
 		}
 		public bool SetCheckMateStatus(CheckMateStatus status)
 		{
 			_status = status;
 			return true;
 		}
-		public CheckMateStatus GetStatus(){
+		public CheckMateStatus GetStatus(){    
 			return _status;
 		}
 	}

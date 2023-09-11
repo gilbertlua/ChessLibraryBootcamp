@@ -6,9 +6,9 @@ namespace ChessLibrary{
 		private int _sequance = 0;
 		// buat method equality compiller
 		// 
-		public void CheckMateCheck(PieceColor color)
+		public bool CheckMateCheck(PieceColor color)
 		{
-			checkMate.CheckMateConfirm(color);
+			return checkMate.CheckMateConfirm(color);			
 		}
 		public CheckMateStatus GetCheckMateStatus()
 		{
