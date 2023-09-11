@@ -9,6 +9,7 @@ namespace ChessLibrary{
 		private int _sizeWidth;
 		private List<IPiece> _captPiece = new List<IPiece>() ;
 		private string[,] _configuration;
+		CheckMate _checkMate = new();
 		
 		// constructur
 		public ChessBoard(){
@@ -24,6 +25,11 @@ namespace ChessLibrary{
 			// configuration diganti ke serialization json atau xml
 			// dibuat overloading yang parameter Piece
 			InitBoard();
+			// SetNullAllBoard();
+			// SetCheckMatBoard();
+			// SetCapturedFriend();
+
+
 		}
 		/// <summary>
 		/// get board 
@@ -54,6 +60,8 @@ namespace ChessLibrary{
 					SetPiece(ip.CreatePiece(_configuration[i,j], PieceColor.black), new Spot(2-1-i, j));        
 				}
 			}
+
+			
 		}    
 		/// <summary>
 		/// set all tile to null piece
@@ -64,6 +72,16 @@ namespace ChessLibrary{
 					_piecesHold[i,j] = null!;
 				}
 			}     
+		}
+		public void SetCheckMatBoard(){
+			SetPiece(new Queen(PieceColor.white),new Spot(6,5));
+			SetPiece(new King(PieceColor.white),new Spot(7,4));
+			SetPiece(new Queen(PieceColor.black),new Spot(4,1));
+			SetPiece(new King(PieceColor.black),new Spot(1,1));
+		}
+		public void SetCapturedFriend(){
+			SetPiece(new Pawn(PieceColor.white),new Spot(6,5));
+			SetPiece(new King(PieceColor.white),new Spot(7,4));
 		}
 		/// <summary>
 		/// is used for move piece
@@ -87,24 +105,27 @@ namespace ChessLibrary{
 				CapturePiece(move.GetEndSpot());
 			}
 			SetPiece(tempPiece,move.GetEndSpot());
-			ResetTile(move.GetStartSpot());
+			ResetPiece(move.GetStartSpot());
 			return true;
 		}
 		/// <summary>
 		/// is use to reset tile
 		/// </summary>
 		/// <param name="spot"></param>
-		public void ResetTile(Spot spot){
+		public bool ResetPiece(Spot spot){
 			if(_piecesHold[spot.Get_X(),spot.Get_Y()] is not null){
 				_piecesHold[spot.Get_X(),spot.Get_Y()] = null!;
+				return true;
 			}
+			return false;
 		}
 		/// <summary>
 		/// is use to captured piece
 		/// </summary>
 		/// <param name="spot"></param>
-		public void CapturePiece(Spot spot){
+		public bool CapturePiece(Spot spot){
 			_captPiece.Add(GetPiece(spot));
+			return true;
 		}
 		public List<IPiece> GetCapturedPiece(){
 			if(_captPiece!=null){
@@ -173,6 +194,12 @@ namespace ChessLibrary{
 				throw new IndexOutOfRangeException();
 			}
 			return _piecesHold[spot.Get_X(),spot.Get_Y()];    
+		}   
+		public Piece GetPiece(int x, int y){
+			if(IsOutOfRange(x,y)){
+				throw new IndexOutOfRangeException();
+			}
+			return _piecesHold[x,y];    
 		}   
 		public bool IsFriendPiece(Move move){
 			Piece destinationPiece = GetPiece(move.GetStartSpot());

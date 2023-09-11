@@ -5,7 +5,8 @@ class Program{
 	static GameController gameController = new GameController();
 	ChessBoard _board = ChessBoard.GetTheBoard();
 	ChessPlayer[] _player = new ChessPlayer[2];
-	List<IPlayer> _allPplayer = gameController.GetAllPlayers();
+	Dictionary<IPlayer,PieceColor> _allPplayer = gameController.GetAllPlayers();
+	CheckMate _checkMate = new CheckMate();
 	Move? _move;
 	Spot? startSpot;
 	Spot? endSpot;
@@ -18,7 +19,7 @@ class Program{
 	void DisplayAllPlayer(){
 		
 		foreach(var x in _allPplayer ){
-			Console.WriteLine("Player Name : " + x.GetPlayerName()+ "\tPlayer id : "+x.GetPlayerId());
+			Console.WriteLine("Player Name : " + x.Key.GetPlayerName()+ "\tPlayer id : "+x.Key.GetPlayerId()+"\tColor : "+x.Value);
 		}
 
 	}
@@ -30,8 +31,8 @@ class Program{
 		_player[1] = new ChessPlayer();
 		_player[1].SetName("Joker");
 		_player[1].SetPlayerId(2);
-		gameController.AddPlayer(_player[0]);
-	 	gameController.AddPlayer(_player[1]);
+		gameController.AddPlayer(_player[0],PieceColor.white);
+	 	gameController.AddPlayer(_player[1],PieceColor.black);
 	}
 	void GenerateBoard(){
 		Piece[,] pieces = gameController.GetBoard();
@@ -42,6 +43,8 @@ class Program{
 		while(true){
 			DisplayCapturedPiece();
 			GenerateBoard();
+			Console.WriteLine("\nstatus :" +gameController.GetCheckMateStatus()+"\n--------");
+			Console.WriteLine("\n--------\nPlayer "+ gameController.PlayerTurn().GetPlayerName()+" turn");
 			ValidateMoveDestination();
 			Console.ReadKey();
 			Console.Clear();
@@ -70,6 +73,7 @@ class Program{
 		Console.Write("x : ");startX = Convert.ToInt32(Console.ReadLine());
 		Console.Write("y : ");startY = Convert.ToInt32(Console.ReadLine());
 		startSpot = new Spot(startX,startY);
+		
 // class diagram
 // Skak
 // check swith turn
@@ -80,23 +84,44 @@ class Program{
 		endSpot = new Spot(endX,endY);
 		_move = new Move(startSpot,endSpot);
 		
-		Piece tempPiece = _board.GetPiece(startSpot);
+		Piece tempPiece = _board.GetPiece(startSpot);		
 		if(tempPiece != null){
-			bool checkIsPieceValidToMove = tempPiece.IsMovedValid(_move);
-			Console.Write(tempPiece.GetName()+"  ~  ");
-			Console.WriteLine(tempPiece.GetColor());
-			if(checkIsPieceValidToMove){
-				bool check = _board.MovePiece(_move);
-				if(check){
-					Console.WriteLine("success move");
+			_allPplayer.TryGetValue(gameController.PlayerTurn(), out PieceColor color);
+			
+			if(tempPiece.GetColor().Equals(color)){
+				Console.WriteLine("current color :" + color);
+				bool checkIsPieceValidToMove = tempPiece.IsMovedValid(_move);
+				Console.Write(tempPiece.GetName()+"  ~  ");
+				Console.WriteLine(tempPiece.GetColor());
+				if(checkIsPieceValidToMove){
+					bool check = _board.MovePiece(_move);
+					if(check){
+						bool checkStatus = gameController.CheckMateCheck(tempPiece.GetColor());
+						if(!checkStatus)
+						{
+							Console.WriteLine("success move");							
+							gameController.IncrementSequence();	
+						}
+						else
+						{
+							_board.ResetPiece(endSpot);
+							_board.SetPiece(tempPiece,startSpot);							
+							Console.WriteLine("Skak!!!");
+						}
+						
+					}
+					else{
+						Console.WriteLine("error to move");
+					}
 				}
 				else{
-					Console.WriteLine("error to move");
-				}
+					Console.WriteLine("Piece destination not valid");
+				}	
 			}
 			else{
-				Console.WriteLine("Piece destination not valid");
+				Console.WriteLine("Bukan giliran anda gan!!!");
 			}
+			
 		}
 		else{
 			Console.WriteLine("No piece in spot");

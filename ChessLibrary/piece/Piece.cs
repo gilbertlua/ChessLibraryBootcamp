@@ -81,7 +81,6 @@ namespace ChessLibrary{
 			return _moveAmount;
 		}
 		public bool HasBeenMoved(){
-			Console.WriteLine("Move amount is :" + GetMoveAmount());
 			return _moveAmount!=0;
 		}
 		public void PieceGotMoved(){

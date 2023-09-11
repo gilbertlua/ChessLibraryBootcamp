@@ -14,8 +14,6 @@
         public int GetWidth(){
             return _width;
         }
-
-
     }
 }
 
