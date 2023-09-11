@@ -10,6 +10,7 @@ class Program{
 	Move? _move;
 	Spot? startSpot;
 	Spot? endSpot;
+	Piece? tempPiece;
 	
 	static void Main(){
 		Program program = new();		
@@ -84,7 +85,19 @@ class Program{
 		endSpot = new Spot(endX,endY);
 		_move = new Move(startSpot,endSpot);
 		
-		Piece tempPiece = _board.GetPiece(startSpot);		
+		try
+		{
+			tempPiece = _board.GetPiece(startSpot);	
+		}
+		catch
+		{
+			Console.WriteLine("position or destination not valid");
+			Console.ReadKey();
+			Console.Clear();
+			ValidateMoveDestination();
+		}
+				
+		
 		if(tempPiece != null){
 			_allPplayer.TryGetValue(gameController.PlayerTurn(), out PieceColor color);
 			

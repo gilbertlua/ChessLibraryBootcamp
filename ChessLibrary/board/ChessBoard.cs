@@ -1,7 +1,9 @@
 using System.Text;
-
+using System.Text.Json.Serialization;
+using System.Text.Json;
 namespace ChessLibrary{
 
+	
 	public class ChessBoard{
 		private static ChessBoard _boardChess = new ChessBoard();
 		private Piece[,] _piecesHold;
@@ -10,6 +12,7 @@ namespace ChessLibrary{
 		private List<IPiece> _captPiece = new List<IPiece>() ;
 		private string[,] _configuration;
 		CheckMate _checkMate = new();
+		string _json = "configuration.json"; 
 		
 		// constructur
 		public ChessBoard(){
@@ -21,6 +24,7 @@ namespace ChessLibrary{
 				{"Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn"},
 				{"Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook"}
 			};
+			
 			
 			// configuration diganti ke serialization json atau xml
 			// dibuat overloading yang parameter Piece

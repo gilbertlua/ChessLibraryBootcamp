@@ -14,11 +14,6 @@ namespace ChessLibrary{
 		{
 			return checkMate.GetStatus();
 		}
-		public bool ResetCheckMateStatus()
-		{
-			checkMate.SetCheckMateStatus(CheckMateStatus.NotCheckMate);
-			return true;
-		}
 		public bool IncrementSequence(){
 			_sequance++;
 			return true;
@@ -50,9 +45,6 @@ namespace ChessLibrary{
 			}
 			throw new Exception("no player added");
 		}
-		/*
-			buat metod Next turn
-		*/
 
 		public Piece[,] GetBoard(){
 			return _board.GenerateBoard();
