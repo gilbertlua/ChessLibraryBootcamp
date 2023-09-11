@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Dynamic;
+using System.Security.Cryptography.X509Certificates;
 using ChessLibrary;
 
 class Program{
@@ -13,9 +14,11 @@ class Program{
 	Piece? tempPiece;
 	
 	static void Main(){
-		Program program = new();		
-		program.AddNewPlayer();
-		program.GameStart();
+		Program program = new();
+		Piece piece = new Pawn(PieceColor.white);
+				
+		// program.AddNewPlayer();
+		// program.GameStart();
 	}
 	void DisplayAllPlayer(){
 		

@@ -28,12 +28,18 @@ namespace ChessLibrary{
 			
 			// configuration diganti ke serialization json atau xml
 			// dibuat overloading yang parameter Piece
-			InitBoard();
-			// SetNullAllBoard();
+			// InitBoard();
+			SetNullAllBoard();
 			// SetCheckMatBoard();
 			// SetCapturedFriend();
 
 
+		}
+		public int GetHeight(){
+			return _sizeHeight;
+		}
+		public int GetWidth(){
+			return _sizeWidth;
 		}
 		/// <summary>
 		/// get board 

@@ -105,13 +105,13 @@ namespace ChessLibrary{
 				for (int i = 1; i < Math.Abs(xD); i++)
 					if (!board.IsSpotEmpty(new Spot(startSpot.Get_X() + i * direction, startSpot.Get_Y())))
 						canMove = false;
-			} else //horizontal movement check
+			} else 
 				if (xD == 0 && yD != 0) {
 					int direction = yD > 0 ? 1 : -1;
 					for (int i = 1; i < Math.Abs(yD); i++)
 						if (!board.IsSpotEmpty(new Spot(startSpot.Get_X(), startSpot.Get_Y() + i * direction)))
 							canMove = false;
-				} else //diagonal movement check
+				} else 
 					if (Math.Abs(xD) == Math.Abs(yD) && xD != 0) {
 						int verticalDirection = xD > 0 ? 1 : -1;
 						int horizontalDirection = yD > 0 ? 1 : -1;
