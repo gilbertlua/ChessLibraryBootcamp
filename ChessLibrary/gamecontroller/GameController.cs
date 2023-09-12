@@ -3,6 +3,7 @@ namespace ChessLibrary{
 		private Dictionary<IPlayer, PieceColor>? _players = new Dictionary<IPlayer, PieceColor>();
 		private ChessBoard _board = ChessBoard.GetTheBoard();
 		private CheckMate checkMate = new CheckMate();
+		private CreateInitPiece createPiece = new CreateInitPiece();
 		private int _sequance = 0;
 		// buat method equality compiller
 		// 
@@ -69,6 +70,33 @@ namespace ChessLibrary{
 		// get capture piece
 		public List<IPiece> GetCapturedPiece(){
 			return _board.GetCapturedPiece();
+		}
+		
+		// Swapped piece
+		public bool SwapPiecePromote(Spot spot, int choose)
+		{
+			PieceColor color = _board.GetPiece(spot).GetColor();
+			switch(choose)
+			{
+				case 1 :
+					Piece rook = createPiece.CreatePiece("rook",color);
+					_board.SetPiece(rook,spot);
+					return true;
+				case 2 :
+					Piece queen = createPiece.CreatePiece("queen",color);
+					_board.SetPiece(queen,spot);
+					return true;
+				case 3 :
+					Piece bishop = createPiece.CreatePiece("bishop",color);
+					_board.SetPiece(bishop,spot);
+					return true;	
+				case 4 :
+					Piece knight = createPiece.CreatePiece("knight",color);
+					_board.SetPiece(knight,spot);
+					return true;
+				default :
+					return false;
+			}
 		}
 	}
 }

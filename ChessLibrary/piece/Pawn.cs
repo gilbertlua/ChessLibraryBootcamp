@@ -12,7 +12,6 @@ namespace ChessLibrary{
         public override bool IsMovedValid(Move move){
             ValidateMove _validCheck = new ValidateMove();
             if(!base.IsMovedValid(move)){
-                Console.WriteLine("base false");
                 return false;
             }
             return _validCheck.IsPawnMoveValid(move);

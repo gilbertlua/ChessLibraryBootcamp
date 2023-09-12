@@ -12,13 +12,13 @@ class Program{
 	Spot? startSpot;
 	Spot? endSpot;
 	Piece? tempPiece;
+	PromotionMove? _promotion;
 	
 	static void Main(){
 		Program program = new();
-		Piece piece = new Pawn(PieceColor.white);
 				
-		// program.AddNewPlayer();
-		// program.GameStart();
+		program.AddNewPlayer();
+		program.GameStart();
 	}
 	void DisplayAllPlayer(){
 		
@@ -42,8 +42,7 @@ class Program{
 		Piece[,] pieces = gameController.GetBoard();
 		GenerateBoard genBoard = new(pieces);
 	}
-	void GameStart(){
-		
+	void GameStart(){	
 		while(true){
 			DisplayCapturedPiece();
 			GenerateBoard();
@@ -77,11 +76,6 @@ class Program{
 		Console.Write("x : ");startX = Convert.ToInt32(Console.ReadLine());
 		Console.Write("y : ");startY = Convert.ToInt32(Console.ReadLine());
 		startSpot = new Spot(startX,startY);
-		
-// class diagram
-// Skak
-// check swith turn
-// gabisa move kalo ke tempat teman
 		Console.WriteLine("\nEnter piece destination :");	
 		Console.Write("x : ");endX = Convert.ToInt32(Console.ReadLine());
 		Console.Write("y : ");endY = Convert.ToInt32(Console.ReadLine());
@@ -110,12 +104,20 @@ class Program{
 				Console.Write(tempPiece.GetName()+"  ~  ");
 				Console.WriteLine(tempPiece.GetColor());
 				if(checkIsPieceValidToMove){
+					bool canPromote = PromoteCheck(tempPiece,_move);
 					bool check = _board.MovePiece(_move);
 					if(check){
 						bool checkStatus = gameController.CheckMateCheck(tempPiece.GetColor());
 						if(!checkStatus)
 						{
-							Console.WriteLine("success move");							
+							if(canPromote)
+							{
+								SwapPiece(_move);
+							}	
+							else
+							{
+								
+							}						
 							gameController.IncrementSequence();	
 						}
 						else
@@ -145,5 +147,47 @@ class Program{
 		
 	}
 
+	bool PromoteCheck(Piece piece, Move move)
+	{
+		_promotion = new PromotionMove();
+		bool check = _promotion.IsPromotionMove(piece,move);
+		return check;
+	}
 	
+	public void SwapPiece(Move? move)
+	{
+		Console.WriteLine("\nWhich pieces do you want to promote:");
+		Console.WriteLine("1. Rook");
+		Console.WriteLine("2. Queen");
+		Console.WriteLine("3. Bishop");
+		Console.WriteLine("4. Knight");	
+		
+		
+		bool validPiece = false;
+		while(!validPiece)
+		{
+			Console.Write("Your choose :");
+			int choose;
+			
+			if(int.TryParse(Console.ReadLine(),out choose))
+			{
+				Console.WriteLine(choose);
+				bool check = (choose>=1)&&(choose<=4);
+				if(!check)
+				{
+					Console.WriteLine("invalid input");
+					continue;
+				}
+				else
+				{
+					Spot endSpot = _move!.GetEndSpot();
+					gameController.SwapPiecePromote(endSpot,choose);
+					validPiece = true;
+				}	
+			}				
+		}
+	
+		
+		
+	}	
 }
