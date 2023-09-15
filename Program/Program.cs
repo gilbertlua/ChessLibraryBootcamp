@@ -1,8 +1,10 @@
 ﻿using System.Dynamic;
 using System.Security.Cryptography.X509Certificates;
 using ChessLibrary;
+using NLog;
 
 class Program{
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();	
 	static GameController gameController = new GameController();
 	ChessBoard _board = ChessBoard.GetTheBoard();
 	ChessPlayer[] _player = new ChessPlayer[2];
@@ -16,7 +18,7 @@ class Program{
 	
 	static void Main(){
 		Program program = new();
-				
+		logger.Info("test");
 		program.AddNewPlayer();
 		program.GameStart();
 	}
@@ -42,9 +44,11 @@ class Program{
 		Piece[,] pieces = gameController.GetBoard();
 		GenerateBoard genBoard = new(pieces);
 	}
-	void GameStart(){	
+	void GameStart(){
+		
 		while(true){
 			DisplayCapturedPiece();
+		
 			GenerateBoard();
 			Console.WriteLine("\nstatus :" +gameController.GetCheckMateStatus()+"\n--------");
 			Console.WriteLine("\n--------\nPlayer "+ gameController.PlayerTurn().GetPlayerName()+" turn");

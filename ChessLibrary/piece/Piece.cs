@@ -1,9 +1,12 @@
+using NLog;
 namespace ChessLibrary{
 	public abstract class Piece:IPiece{
 		private string? _name;
 		private string? _symbol;
 		private PieceColor _color;
 		private int _moveAmount;
+		
+		private static Logger logger = LogManager.GetCurrentClassLogger();
 		// set
 		public bool SetName(string name)
 		{
@@ -61,6 +64,7 @@ namespace ChessLibrary{
 
 		// is move valid
 		public virtual bool IsMovedValid(Move move){
+			logger.Info($"Piece to move {move.GetStartSpot().Get_X()} | {move.GetStartSpot().Get_Y()} ");
 			ChessBoard board = ChessBoard.GetTheBoard();
 			if (board.IsOutOfRange(move)){
 				// Console.WriteLine("Error 1");

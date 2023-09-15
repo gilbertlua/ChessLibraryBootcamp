@@ -10,7 +10,6 @@ public class Tests
         Board board = new Board();    
         int height = board.GetHeight();
         int width = board.GetWidth();
-        
         Console.WriteLine("height \t: " + height);
         Console.WriteLine("width \t: "+ width);        
     }
