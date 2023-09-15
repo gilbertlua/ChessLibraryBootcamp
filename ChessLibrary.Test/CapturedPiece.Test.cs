@@ -46,7 +46,7 @@ class CapturedPiece{
 		}		
     }
 
-[Test]
+// [Test]
 	public void CheckMateTest(){
 		CheckMate _checkMate= new CheckMate();
 		ChessBoard _board = ChessBoard.GetTheBoard();

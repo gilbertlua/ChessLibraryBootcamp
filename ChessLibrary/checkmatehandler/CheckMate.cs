@@ -12,7 +12,7 @@ namespace ChessLibrary{
 					if(tempPiece!=null){
 						if(tempPiece.GetColor().Equals(color)){
 							if(tempPiece.GetName().Equals("King")){
-								Console.WriteLine($"Piece Color {i} {j} "+ tempPiece.GetColor());
+								// Console.WriteLine($"Piece Color {i} {j} "+ tempPiece.GetColor());
 								return new Spot(i,j);
 							}                            
 						}

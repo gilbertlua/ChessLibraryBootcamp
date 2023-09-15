@@ -1,7 +1,9 @@
 using System.Text;
-
+using System.Text.Json.Serialization;
+using System.Text.Json;
 namespace ChessLibrary{
 
+	
 	public class ChessBoard{
 		private static ChessBoard _boardChess = new ChessBoard();
 		private Piece[,] _piecesHold;
@@ -10,6 +12,7 @@ namespace ChessLibrary{
 		private List<IPiece> _captPiece = new List<IPiece>() ;
 		private string[,] _configuration;
 		CheckMate _checkMate = new();
+		// string _json = "configuration.json"; 
 		
 		// constructur
 		public ChessBoard(){
@@ -22,14 +25,22 @@ namespace ChessLibrary{
 				{"Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook"}
 			};
 			
+			
 			// configuration diganti ke serialization json atau xml
 			// dibuat overloading yang parameter Piece
-			InitBoard();
+			// InitBoard();
 			// SetNullAllBoard();
+			SetPromoteBoard();
 			// SetCheckMatBoard();
 			// SetCapturedFriend();
 
 
+		}
+		public int GetHeight(){
+			return _sizeHeight;
+		}
+		public int GetWidth(){
+			return _sizeWidth;
 		}
 		/// <summary>
 		/// get board 
@@ -73,6 +84,12 @@ namespace ChessLibrary{
 				}
 			}     
 		}
+		public void SetPromoteBoard(){
+			SetPiece(new Pawn(PieceColor.white),new Spot(1,0));
+			SetPiece(new Pawn(PieceColor.black),new Spot(6,7));
+			SetPiece(new King(PieceColor.white),new Spot(4,4));
+			SetPiece(new King(PieceColor.black),new Spot(3,2));
+		}		
 		public void SetCheckMatBoard(){
 			SetPiece(new Queen(PieceColor.white),new Spot(6,5));
 			SetPiece(new King(PieceColor.white),new Spot(7,4));

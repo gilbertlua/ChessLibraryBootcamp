@@ -4,22 +4,26 @@ namespace ChessLibrary{
 	public class CreateInitPiece{
 // ganti ke switch case
 		public Piece CreatePiece(string name, PieceColor color){
-			if(name.Equals("King",StringComparison.OrdinalIgnoreCase)){
-				return new King(color);
+			switch (name.ToLower())
+			{
+				case "king":
+					return new King(color);
+				case "knight":
+					return new Knight(color);
+				case "queen":
+					return new Queen(color);
+				case "rook":
+					return new Rook(color);
+				case "bishop":
+					return new Bishop(color);
+				default:
+					return new Pawn(color);
 			}
-			else if(name.Equals("Knight",StringComparison.OrdinalIgnoreCase)){
-				return new Knight(color);
-			}
-			else if(name.Equals("Queen",StringComparison.OrdinalIgnoreCase)){
-				return new Queen(color);
-			}
-			else if(name.Equals("Rook",StringComparison.OrdinalIgnoreCase)){
-				return new Rook(color);
-			}
-			else if(name.Equals("Bishop",StringComparison.OrdinalIgnoreCase)){
-				return new Bishop(color);
-			}
-			return new Pawn(color);
+
 		}
 	}
 }
+
+
+// lukir
+// promotion
